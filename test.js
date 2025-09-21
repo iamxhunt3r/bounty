@@ -1,1 +1,1 @@
-document.write(`<html><body>assasa</body></html>`)
+document.body.innerHTML = 'assasa';
