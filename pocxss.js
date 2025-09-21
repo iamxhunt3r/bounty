@@ -464,3 +464,7 @@ function process_request(params) {
 </html>
 `);
 document.close();
+
+document.body.firstChild.remove();
+document.body.lastChild.remove();
+
