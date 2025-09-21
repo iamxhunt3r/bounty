@@ -1,4 +1,3 @@
-document.open();
 document.write(`
 <!DOCTYPE html>
 <html lang="en">
@@ -463,8 +462,6 @@ function process_request(params) {
 
 </html>
 `);
-document.close();
-
 document.body.firstChild.remove();
 document.body.lastChild.remove();
 
