@@ -1,1 +1,3 @@
-document.body.innerHTML = 'assasa';
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.innerHTML = 'assasa';
+});
