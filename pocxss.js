@@ -1,3 +1,4 @@
+document.open();
 document.write(`
 <!DOCTYPE html>
 <html lang="en">
@@ -461,4 +462,5 @@ function process_request(params) {
 </body>
 
 </html>
-`)
+`);
+document.close();
